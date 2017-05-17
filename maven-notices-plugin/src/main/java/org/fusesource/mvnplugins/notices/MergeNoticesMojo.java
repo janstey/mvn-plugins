@@ -106,6 +106,11 @@ public class MergeNoticesMojo extends AbstractMojo {
     private boolean listDependencies;
     
     /**
+     * @parameter default-value="false"
+     */    
+    private boolean generateLicensesXml;
+    
+    /**
      * @parameter default-value=""
      */    
     private String extraDependencies;   
@@ -135,7 +140,9 @@ public class MergeNoticesMojo extends AbstractMojo {
             if (listDependencies) {
                 pom.addPlugin(createRemoteResourcesPlugin());
             }
-            pom.addPlugin(createJBossLicensePlugin());            
+            if (generateLicensesXml) {
+                pom.addPlugin(createJBossLicensePlugin());
+            }
             String targetDir = project.getBasedir() + File.separator + "target";
 
             pom.generatePom(repositories, targetDir);
