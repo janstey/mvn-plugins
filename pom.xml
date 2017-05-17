@@ -212,7 +212,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.7</version>
+        <version>2.10.4</version>
         <reportSets>
           <reportSet>
             <id>javadoc</id>
@@ -226,7 +226,7 @@
               <nodeprecated>true</nodeprecated>
               <quiet>false</quiet>
               <verbose>false</verbose>
-              
+              <additionalparam>${javadoc.opts}</additionalparam>
               <excludePackageNames>*.internal</excludePackageNames>
               <linksource>true</linksource>
               <links>
