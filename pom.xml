@@ -33,7 +33,7 @@
   <description>A collection of random yet handy Maven plugins.</description>
 
   <modules>
-    <module>maven-provision-plugin</module>
+<!--    <module>maven-provision-plugin</module> build failure on release -->
     <module>maven-uberize-plugin</module>
     <module>maven-linkchecker-plugin</module>
     <module>maven-avro-plugin</module>
