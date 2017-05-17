@@ -202,7 +202,7 @@ public class MergeNoticesMojo extends AbstractMojo {
     private Plugin createShadePlugin() {
         Plugin shade = new Plugin();
         shade.setArtifactId("maven-shade-plugin");
-        shade.setVersion("2.2");
+        shade.setVersion("3.0.0");
         PluginExecution pluginExecution = new PluginExecution();
         pluginExecution.addGoal("shade");
         pluginExecution.setPhase("package");
@@ -269,7 +269,7 @@ public class MergeNoticesMojo extends AbstractMojo {
         Plugin plugin = new Plugin();
         
         plugin.setArtifactId("maven-remote-resources-plugin");
-        plugin.setVersion("1.4");
+        plugin.setVersion("1.5");
         PluginExecution pluginExecution = new PluginExecution();
         pluginExecution.addGoal("process");
         pluginExecution.setPhase("package");
