@@ -147,10 +147,16 @@ public class MergeNoticesMojo extends AbstractMojo {
 
             pom.generatePom(repositories, targetDir);
             File jarFile = pom.buildPom();           
-
+           
             if (jarFile.exists()) {
+                if (generateLicensesXml) {
+                    getLog().info("License summary saved as " + targetDir + File.separator + "target/maven-jboss-license-plugin/licenses.xml");
+                }
+                if (listDependencies) {            
+                    getLog().info("Dependencies saved as " + targetDir + File.separator + "target/maven-shared-archive-resources/META-INF/DEPENDENCIES");
+                }                
                 extractFile(targetDir, jarFile, "META-INF/NOTICE");
-                getLog().info("Notices generated in " + (System.currentTimeMillis() - start) + "ms.");
+                getLog().info("Notices generated in " + (System.currentTimeMillis() - start) + "ms.");                
             } else {
                 getLog().error(IOUtil.toString(new FileInputStream(targetDir + "/dependency-pom.xml.log")));
                 throw new MojoExecutionException("Could not generate notices, please check target/dependency-pom.xml.log for details.");
@@ -177,6 +183,7 @@ public class MergeNoticesMojo extends AbstractMojo {
                     File metaInf = new File(destination + File.separator + "META-INF");
                     metaInf.mkdir();
                     FileOutputStream fos = new FileOutputStream(destination + File.separator + entry.getName());
+                    getLog().info("Notices saved as " + destination + File.separator + entry.getName());
                     dest = new BufferedOutputStream(fos, 2048);
                     while ((count = zis.read(data, 0, 2048)) != -1) {
                         dest.write(data, 0, count);
