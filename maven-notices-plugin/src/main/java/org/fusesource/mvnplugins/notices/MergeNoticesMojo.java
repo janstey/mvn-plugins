@@ -135,6 +135,7 @@ public class MergeNoticesMojo extends AbstractMojo {
             if (listDependencies) {
                 pom.addPlugin(createRemoteResourcesPlugin());
             }
+            pom.addPlugin(createJBossLicensePlugin());            
             String targetDir = project.getBasedir() + File.separator + "target";
 
             pom.generatePom(repositories, targetDir);
@@ -276,6 +277,27 @@ public class MergeNoticesMojo extends AbstractMojo {
         return plugin;
     }
 
+    
+    private Plugin createJBossLicensePlugin() {
+        Plugin plugin = new Plugin();
+        
+        plugin.setGroupId("org.jboss.maven.plugins");
+        plugin.setArtifactId("maven-jboss-license-plugin");
+        plugin.setVersion("1.0.3");
+        PluginExecution pluginExecution = new PluginExecution();
+        pluginExecution.addGoal("download-licenses");
+        pluginExecution.setPhase("package");
+
+        Xpp3Dom configuration = new Xpp3Dom("configuration");
+        
+        addElement(configuration, "outputDirectory", "${project.build.directory}/maven-jboss-license-plugin");
+        addElement(configuration, "licenseSummaryFile", "${project.build.directory}/maven-jboss-license-plugin/licenses.xml");
+        
+        pluginExecution.setConfiguration(configuration);
+        plugin.addExecution(pluginExecution);
+        return plugin;
+    }
+    
     private void addElement(Xpp3Dom parent, String name, String value) {
         Xpp3Dom artifactId = new Xpp3Dom(name);        
         artifactId.setValue(value);
