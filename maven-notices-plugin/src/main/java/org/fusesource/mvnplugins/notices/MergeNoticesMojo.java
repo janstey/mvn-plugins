@@ -150,9 +150,6 @@ public class MergeNoticesMojo extends AbstractMojo {
 
             if (jarFile.exists()) {
                 extractFile(targetDir, jarFile, "META-INF/NOTICE");
-                if (listDependencies) {
-                    extractFile(targetDir, jarFile, "META-INF/DEPENDENCIES");
-                }
                 getLog().info("Notices generated in " + (System.currentTimeMillis() - start) + "ms.");
             } else {
                 getLog().error(IOUtil.toString(new FileInputStream(targetDir + "/dependency-pom.xml.log")));
