@@ -301,8 +301,8 @@ public class MergeNoticesMojo extends AbstractMojo {
 
         Xpp3Dom configuration = new Xpp3Dom("configuration");
         
-        addElement(configuration, "outputDirectory", "${project.build.directory}/maven-jboss-license-plugin");
-        addElement(configuration, "licenseSummaryFile", "${project.build.directory}/maven-jboss-license-plugin/licenses.xml");
+        addElement(configuration, "licensesOutputDirectory", "${project.build.directory}/maven-jboss-license-plugin");
+        addElement(configuration, "licensesOutputFile", "${project.build.directory}/maven-jboss-license-plugin/licenses.xml");
         
         pluginExecution.setConfiguration(configuration);
         plugin.addExecution(pluginExecution);
