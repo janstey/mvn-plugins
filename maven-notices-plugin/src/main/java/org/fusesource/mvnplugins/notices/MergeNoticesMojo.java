@@ -292,9 +292,9 @@ public class MergeNoticesMojo extends AbstractMojo {
     private Plugin createJBossLicensePlugin() {
         Plugin plugin = new Plugin();
         
-        plugin.setGroupId("org.jboss.maven.plugins");
-        plugin.setArtifactId("maven-jboss-license-plugin");
-        plugin.setVersion("1.0.3");
+        plugin.setGroupId("org.codehaus.mojo");
+        plugin.setArtifactId("license-maven-plugin");
+        plugin.setVersion("1.12");
         PluginExecution pluginExecution = new PluginExecution();
         pluginExecution.addGoal("download-licenses");
         pluginExecution.setPhase("package");
