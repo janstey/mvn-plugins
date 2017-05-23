@@ -123,8 +123,12 @@ public class MergeNoticesMojo extends AbstractMojo {
     /**
      * @parameter default-value="notice-supplements.xml"
      */    
-    private String noticeSupplements;       
-
+    private String noticeSupplements;           
+    /**
+     * @parameter default-value=""
+     */    
+    private String licensesConfigFile;      
+    
     /**
      * @parameter default-value=""
      */    
@@ -299,8 +303,11 @@ public class MergeNoticesMojo extends AbstractMojo {
         pluginExecution.addGoal("download-licenses");
         pluginExecution.setPhase("package");
 
-        Xpp3Dom configuration = new Xpp3Dom("configuration");
+        Xpp3Dom configuration = new Xpp3Dom("configuration");        
         
+        if (!licensesConfigFile.isEmpty()) {
+            addElement(configuration, "licensesConfigFile", licensesConfigFile);
+        }
         addElement(configuration, "licensesOutputDirectory", "${project.build.directory}/maven-jboss-license-plugin");
         addElement(configuration, "licensesOutputFile", "${project.build.directory}/maven-jboss-license-plugin/licenses.xml");
         
