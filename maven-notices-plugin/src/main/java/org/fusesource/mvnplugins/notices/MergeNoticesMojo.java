@@ -313,7 +313,7 @@ public class MergeNoticesMojo extends AbstractMojo {
 
         Xpp3Dom configuration = new Xpp3Dom("configuration");        
         
-        if (!licensesConfigFile.isEmpty()) {
+        if (licensesConfigFile != null && !licensesConfigFile.isEmpty()) {
             addElement(configuration, "licensesConfigFile", licensesConfigFile);
         }
         addElement(configuration, "includeTransitiveDependencies", "false");
