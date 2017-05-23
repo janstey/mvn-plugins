@@ -154,9 +154,17 @@ public class MergeNoticesMojo extends AbstractMojo {
            
             if (jarFile.exists()) {
                 if (generateLicensesXml) {
+                    if (!(new File(targetDir + File.separator + "target/maven-jboss-license-plugin/licenses.xml")).exists()) {
+                        getLog().error(IOUtil.toString(new FileInputStream(targetDir + "/dependency-pom.xml.log")));
+                        throw new MojoExecutionException("Could not generate license summary, please check target/dependency-pom.xml.log for details.");
+                    }                        
                     getLog().info("License summary saved as: " + targetDir + File.separator + "target/maven-jboss-license-plugin/licenses.xml");
                 }
                 if (listDependencies) {  
+                    if (!(new File(targetDir + File.separator + "target/maven-shared-archive-resources/META-INF/DEPENDENCIES")).exists()) {
+                        getLog().error(IOUtil.toString(new FileInputStream(targetDir + "/dependency-pom.xml.log")));
+                        throw new MojoExecutionException("Could not generate dependencies list, please check target/dependency-pom.xml.log for details.");
+                    }                        
                     getLog().info("Dependencies saved as:    " + targetDir + File.separator + "target/maven-shared-archive-resources/META-INF/DEPENDENCIES");
                 }                
                 extractFile(targetDir, jarFile, "META-INF/NOTICE");

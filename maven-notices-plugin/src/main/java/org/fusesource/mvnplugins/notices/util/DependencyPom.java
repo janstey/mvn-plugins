@@ -155,7 +155,7 @@ public class DependencyPom {
                 request.setOutputHandler(new PrintStreamHandler(invokerLog, false));            
             
                 Invoker invoker = new DefaultInvoker();
-                invocationResult = invoker.execute(request);
+                invocationResult = invoker.execute(request);                
             } catch (FileNotFoundException e) {
             } finally {
                 if (invokerLog != null) {
