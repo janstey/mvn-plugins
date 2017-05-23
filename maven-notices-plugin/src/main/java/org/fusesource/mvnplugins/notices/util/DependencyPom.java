@@ -22,6 +22,7 @@ import org.apache.maven.model.Plugin;
 import org.apache.maven.model.Profile;
 import org.apache.maven.model.io.DefaultModelWriter;
 import org.apache.maven.model.io.ModelWriter;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.shared.invoker.DefaultInvocationRequest;
 import org.apache.maven.shared.invoker.DefaultInvoker;
@@ -127,7 +128,7 @@ public class DependencyPom {
         writer.write(file, null, model);
     }
 
-    public File buildPom() throws MavenInvocationException {
+    public File buildPom() throws MavenInvocationException, MojoExecutionException, FileNotFoundException {
         if (file != null) {
             InvocationRequest request = new DefaultInvocationRequest();
             request.setPomFile(file);
@@ -155,8 +156,11 @@ public class DependencyPom {
                 request.setOutputHandler(new PrintStreamHandler(invokerLog, false));            
             
                 Invoker invoker = new DefaultInvoker();
-                invocationResult = invoker.execute(request);                
-            } catch (FileNotFoundException e) {
+                invocationResult = invoker.execute(request);    
+                
+                if (invocationResult.getExitCode() != 0) {
+                    throw new MojoExecutionException("Error running forked build. Please check target/dependency-pom.xml.log for details. Invokation request: " + request);
+                }
             } finally {
                 if (invokerLog != null) {
                     invokerLog.close();    
