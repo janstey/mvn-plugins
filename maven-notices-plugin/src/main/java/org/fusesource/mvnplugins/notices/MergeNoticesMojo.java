@@ -308,6 +308,7 @@ public class MergeNoticesMojo extends AbstractMojo {
         if (!licensesConfigFile.isEmpty()) {
             addElement(configuration, "licensesConfigFile", licensesConfigFile);
         }
+        addElement(configuration, "includeTransitiveDependencies", "false");
         addElement(configuration, "licensesOutputDirectory", "${project.build.directory}/maven-jboss-license-plugin");
         addElement(configuration, "licensesOutputFile", "${project.build.directory}/maven-jboss-license-plugin/licenses.xml");
         
