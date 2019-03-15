@@ -1,5 +1,3 @@
-package org.fusesource.mvnplugins.updatesite;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,6 +16,7 @@ package org.fusesource.mvnplugins.updatesite;
  * specific language governing permissions and limitations
  * under the License.
  */
+package org.fusesource.mvnplugins.updatesite;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.manager.WagonConfigurationException;
@@ -414,38 +413,38 @@ public class UpdateSiteDeployMojo
                                Log log)
             throws WagonConfigurationException {
         // MSITE-25: Make sure that the server settings are inserted
-        for (int i = 0; i < settings.getServers().size(); i++) {
-            Server server = (Server) settings.getServers().get(i);
-            String id = server.getId();
-            if (id != null && id.equals(repositoryId)) {
-                if (server.getConfiguration() != null) {
-                    final PlexusConfiguration plexusConf =
-                            new XmlPlexusConfiguration((Xpp3Dom) server.getConfiguration());
-
-                    ComponentConfigurator componentConfigurator = null;
-                    try {
-                        componentConfigurator = (ComponentConfigurator) container.lookup(ComponentConfigurator.ROLE);
-                        componentConfigurator.configureComponent(wagon, plexusConf, container.getContainerRealm());
-                    } catch (final ComponentLookupException e) {
-                        throw new WagonConfigurationException(repositoryId, "Unable to lookup wagon configurator."
-                                + " Wagon configuration cannot be applied.", e);
-                    } catch (ComponentConfigurationException e) {
-                        throw new WagonConfigurationException(repositoryId, "Unable to apply wagon configuration.",
-                                e);
-                    } finally {
-                        if (componentConfigurator != null) {
-                            try {
-                                container.release(componentConfigurator);
-                            } catch (ComponentLifecycleException e) {
-                                log.error("Problem releasing configurator - ignoring: " + e.getMessage());
-                            }
-                        }
-                    }
-
-                }
-
-            }
-        }
+//        for (int i = 0; i < settings.getServers().size(); i++) {
+//            Server server = (Server) settings.getServers().get(i);
+//            String id = server.getId();
+//            if (id != null && id.equals(repositoryId)) {
+//                if (server.getConfiguration() != null) {
+//                    final PlexusConfiguration plexusConf =
+//                            new XmlPlexusConfiguration((Xpp3Dom) server.getConfiguration());
+//
+//                    ComponentConfigurator componentConfigurator = null;
+//                    try {
+//                        componentConfigurator = (ComponentConfigurator) container.lookup(ComponentConfigurator.ROLE);
+//                        componentConfigurator.configureComponent(wagon, plexusConf, container.getContainerRealm());
+//                    } catch (final ComponentLookupException e) {
+//                        throw new WagonConfigurationException(repositoryId, "Unable to lookup wagon configurator."
+//                                + " Wagon configuration cannot be applied.", e);
+//                    } catch (ComponentConfigurationException e) {
+//                        throw new WagonConfigurationException(repositoryId, "Unable to apply wagon configuration.",
+//                                e);
+//                    } finally {
+//                        if (componentConfigurator != null) {
+//                            try {
+//                                container.release(componentConfigurator);
+//                            } catch (ComponentLifecycleException e) {
+//                                log.error("Problem releasing configurator - ignoring: " + e.getMessage());
+//                            }
+//                        }
+//                    }
+//
+//                }
+//
+//            }
+//        }
     }
 
     public void contextualize(Context context)
