@@ -201,14 +201,19 @@ public class DependencyVisualizer {
             return types.size()==1 && types.contains(value); 
         }
 
-        public int getRecursiveChildCount() {
+        public int getRecursiveChildCount(Set<String> parentIds) {
             int rc = children.size();
-            for (Edge child : children) {
-                int t = child.getRecursiveChildCount();
-                if( t > rc ) {
-                    rc = t;
+            if(!parentIds.contains(id)){
+                parentIds.add(id);
+                for (Edge child : children) {
+                    int t = child.getRecursiveChildCount(parentIds);
+                    if (t > rc) {
+                        rc = t;
+                    }
                 }
+                parentIds.remove(id);
             }
+
             return rc;
         }
 
@@ -385,7 +390,8 @@ public class DependencyVisualizer {
         }
 
         double getWeight() {
-            double rc = 1 + getRecursiveChildCount();
+            HashSet<String> parents = new HashSet<String>();
+            double rc = 1 + getRecursiveChildCount(parents);
             if ( isScope("compile")) {
                 rc *= 2;
             }
@@ -395,8 +401,9 @@ public class DependencyVisualizer {
             return rc;
         }
 
-        private int getRecursiveChildCount() {
-            return child.getRecursiveChildCount();
+
+        private int getRecursiveChildCount(Set<String> parentIds) {
+            return child.getRecursiveChildCount(parentIds);
         }
 
         @Override
