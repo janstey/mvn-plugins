@@ -603,11 +603,11 @@ public class DependencyVisualizer {
             commandline.setExecutable("dot");
             commandline.addArguments(new String[]{
                     "-T" + FileUtils.getExtension(target.getName()),
-                    "-o" + target.getAbsolutePath(),
-                    source.getAbsolutePath()
+                    "-o" + '"' + target.getAbsolutePath() + '"',
+                    '"' + source.getAbsolutePath() + '"'
             });
 
-            log.debug("Executing dot command...");
+            log.debug("Executing dot command..." + commandline);
             int rc = CommandLineUtils.executeCommandLine(commandline, new DefaultConsumer(), new DefaultConsumer());
             if (rc != 0) {
                 throw new MojoExecutionException("Execution of the 'dot' command failed.  Perhaps it's not installed.  See: http://www.graphviz.org/");
