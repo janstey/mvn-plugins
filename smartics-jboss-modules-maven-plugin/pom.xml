@@ -6,12 +6,12 @@
   <parent>
     <groupId>org.fusesource.mvnplugins</groupId>
     <artifactId>mvnplugins</artifactId>
-    <version>1.44</version>
+    <version>1.44-SNAPSHOT</version>
   </parent>
 
   <groupId>org.fusesource.mvnplugins</groupId>
   <artifactId>smartics-jboss-modules-maven-plugin</artifactId>
-  <version>1.44</version>
+  <version>1.44-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
 
   <name>${project.artifactId}</name>
@@ -186,31 +186,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-        <repositories>
-          <repository>
-            <id>smartics</id>
-            <url>https://www.smartics.eu/nexus/content/groups/public-group</url>
-            <releases>
-              <enabled>true</enabled>
-            </releases>
-            <snapshots>
-              <enabled>false</enabled>
-            </snapshots>
-          </repository>
-        </repositories>
-        <pluginRepositories>
-          <pluginRepository>
-            <id>smartics</id>
-            <url>https://www.smartics.eu/nexus/content/groups/public-group</url>
-            <releases>
-              <enabled>true</enabled>
-            </releases>
-            <snapshots>
-              <enabled>false</enabled>
-            </snapshots>
-          </pluginRepository>
-        </pluginRepositories>
 
   <build>
     <pluginManagement>
@@ -433,7 +408,37 @@
         </plugins>
       </build>
     </profile>
-
     
+    <!-- enables extra repositories which may have some
+         goodies that have not reached central yet -->
+    <profile>
+      <id>download</id>
+
+        <repositories>
+          <repository>
+            <id>smartics</id>
+            <url>https://www.smartics.eu/nexus/content/groups/public-group</url>
+            <releases>
+              <enabled>true</enabled>
+            </releases>
+            <snapshots>
+              <enabled>false</enabled>
+            </snapshots>
+          </repository>
+        </repositories>
+        <pluginRepositories>
+          <pluginRepository>
+            <id>smartics</id>
+            <url>https://www.smartics.eu/nexus/content/groups/public-group</url>
+            <releases>
+              <enabled>true</enabled>
+            </releases>
+            <snapshots>
+              <enabled>false</enabled>
+            </snapshots>
+          </pluginRepository>
+        </pluginRepositories>
+    
+    </profile>
   </profiles>
 </project>
