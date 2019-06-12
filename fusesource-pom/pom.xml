@@ -22,7 +22,7 @@
 
   <groupId>org.fusesource</groupId>
   <artifactId>fusesource-pom</artifactId>
-  <version>1.12-SNAPSHOT</version>
+  <version>1.12</version>
   <packaging>pom</packaging>
 
   <name>FuseSource POM</name>
@@ -63,6 +63,7 @@
     <connection>scm:git:git://forge.fusesource.com/mvnplugins.git</connection>
     <developerConnection>scm:git:ssh://git@forge.fusesource.com/mvnplugins.git</developerConnection>
     <url>http://github.com/chirino/mvnplugins/tree/master</url>
+    <tag>HEAD</tag>
   </scm>
 
   <!-- including A developer as it's required by the maven poms going into central -->
